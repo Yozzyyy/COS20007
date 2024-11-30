@@ -1,0 +1,48 @@
+using NUnit.Framework;
+using counterclass;
+
+namespace Clockclass
+{
+    public class TestCounter
+    {
+        Counter _countertest;
+
+        [SetUp]
+        public void Setup()
+        {
+            _countertest = new Counter("Test");
+        }
+
+        [Test]
+        public void test_start9()
+        {
+            Assert.AreEqual(0, _countertest.Tick);
+        }
+
+        [Test]
+        public void test_name()
+        {
+            Assert.AreEqual("Test", _countertest.Name);
+        }
+
+        [Test]
+        public void test_count_reset()
+        {
+            _countertest.increment();
+            _countertest.Reset();
+            Assert.AreEqual(0, _countertest.Tick);
+        }
+
+        [TestCase(60, 60)]
+        [TestCase(100, 100)]
+        public void test_increment(int tick, int result)
+        {
+            int i;
+            for (i = 0; i < tick; i++)
+            {
+                _countertest.increment();
+            }
+            Assert.AreEqual(result, _countertest.Tick);
+        }
+    }
+}
